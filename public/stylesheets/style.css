@@ -10,4 +10,4 @@ body { font-family: Arial, Helvetica, sans-serif; margin:0; background:#f5f5f5; 
 .placeholder { height:160px; background:#ddd; display:flex; align-items:center; justify-content:center; color:#666; border-radius:6px; }
 .meta { padding-top:8px; }
 .desc { margin:0 0 6px 0; color:#222; font-size:14px; }
-.author { margin:0; font-size:12px; color:#666; }
+.author { margin:0; font-size:12px; color:red; }
