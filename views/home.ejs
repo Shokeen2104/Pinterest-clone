@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Home - Pinterest Clone</title>
+  <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <h1>Pinterest Clone</h1>
+      <nav class="nav">
+        <a href="/">Home</a>
+        <a href="/login">Login</a>
+        <a href="/register">Register</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap grid">
+    <% if (posts && posts.length) { %>
+      <% posts.forEach(function(post){ %>
+        <article class="pin">
+          <% if (post.image) { %>
+            <img src="<%= post.image %>" alt="pin image">
+          <% } else { %>
+            <div class="placeholder">No image</div>
+          <% } %>
+          <div class="meta">
+            <p class="desc"><%= post.postText %></p>
+            <p class="author">By <%= post.user ? post.user.username : 'Unknown' %></p>
+          </div>
+        </article>
+      <% }) %>
+    <% } else { %>
+      <p>No pins yet. Add one from your profile.</p>
+    <% } %>
+  </main>
+
+</body>
+</html>

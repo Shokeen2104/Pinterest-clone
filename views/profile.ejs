@@ -1,0 +1,91 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Profile</title>
+  <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+<body>
+  <div class="wrap profile">
+    <div class="profile-header">
+      <div class="dp">
+        <% if (user.dp) { %>
+          <img src="<%= user.dp %>" alt="<%= user.username %>'s avatar" style="width:80px;height:80px;border-radius:40px;object-fit:cover">
+        <% } else { %>
+          <div class="placeholder" style="width:80px;height:80px;border-radius:40px;">No DP</div>
+        <% } %>
+      </div>
+      <div class="profile-meta">
+        <h2><%= user.username %></h2>
+        <p><strong><%= user.fullname %></strong></p>
+        <p><%= user.bio || 'No bio yet.' %></p>
+        <% if (session && session.userId && session.userId.toString() === (user._id && user._id.toString())) { %>
+          <p><a href="/logout">Logout</a></p>
+        <% } %>
+      </div>
+    </div>
+
+    <% if (session && session.userId && session.userId.toString() === (user._id && user._id.toString())) { %>
+      <section style="margin-top:20px;">
+        <h3>Update profile picture / bio</h3>
+        <form action="/profile/upload" method="post" enctype="multipart/form-data">
+          <div>
+            <label>Profile picture (choose file)</label><br>
+            <input type="file" name="image" accept="image/*">
+          </div>
+          <div>
+            <label>Bio</label><br>
+            <textarea name="bio" rows="3" cols="40"><%= user.bio || '' %></textarea>
+          </div>
+          <div style="margin-top:8px;"><button type="submit">Save profile</button></div>
+        </form>
+
+        <h3 style="margin-top:18px;">Create a new Pin</h3>
+        <form action="/post/create" method="post" enctype="multipart/form-data">
+          <div>
+            <label>Description</label><br>
+            <input name="postText" required style="width:60%">
+          </div>
+          <div>
+            <label>Image</label><br>
+            <input type="file" name="image" accept="image/*">
+          </div>
+          <div>
+            <label>Tags (comma separated)</label><br>
+            <input name="tags" style="width:60%">
+          </div>
+          <div style="margin-top:8px;"><button type="submit">Create Pin</button></div>
+        </form>
+      </section>
+    <% } %>
+
+    <h3>Pins</h3>
+    <% if (user.posts && user.posts.length) { %>
+      <div class="grid">
+        <% user.posts.forEach(function(p){ %>
+          <article class="pin">
+            <% if (p.image) { %>
+              <img src="<%= p.image %>" alt="pin image">
+            <% } else { %>
+              <div class="placeholder">No image</div>
+            <% } %>
+            <div class="meta">
+              <p class="desc"><%= p.postText %></p>
+              <% if (p.tags && p.tags.length) { %>
+                <p class="tags">Tags:
+                <% p.tags.forEach(function(t, idx){ %>
+                  <a class="tag" href="/search?tag=<%= encodeURIComponent(t) %>"><%= t %></a><% if (idx < p.tags.length-1){ %>, <% } %>
+                <% }) %>
+                </p>
+              <% } %>
+            </div>
+          </article>
+        <% }) %>
+      </div>
+    <% } else { %>
+      <p>No pins yet.</p>
+    <% } %>
+  </div>
+</body>
+</html>

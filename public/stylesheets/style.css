@@ -1,0 +1,13 @@
+/* Basic styles for Pinterest-like grid */
+body { font-family: Arial, Helvetica, sans-serif; margin:0; background:#f5f5f5; }
+.wrap { max-width:1100px; margin:0 auto; padding:16px; }
+.site-header { background:#fff; border-bottom:1px solid #e6e6e6; }
+.site-header .wrap { display:flex; align-items:center; justify-content:space-between; }
+.nav a { margin-left:12px; color:#333; text-decoration:none; }
+.grid { display:grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); grid-gap:16px; margin-top:16px; }
+.pin { background:#fff; border-radius:8px; padding:8px; box-shadow:0 1px 2px rgba(0,0,0,0.05); }
+.pin img { width:100%; height:auto; border-radius:6px; display:block; }
+.placeholder { height:160px; background:#ddd; display:flex; align-items:center; justify-content:center; color:#666; border-radius:6px; }
+.meta { padding-top:8px; }
+.desc { margin:0 0 6px 0; color:#222; font-size:14px; }
+.author { margin:0; font-size:12px; color:#666; }
